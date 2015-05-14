@@ -52,11 +52,8 @@ function user_ary_in_disc($id) {
 	$ary = user_ary_full();
 	$disc = fold(user_id_ary_in_disc($id));
 
-	// $disc = array();
-	// foreach($discs as $d) $disc[] = $d[0];
-
 	$rep = array();
-	foreach($ary as $usr) 
+	foreach($ary as $usr)
 		if(in_array($usr['id_user'], $disc))
 			$rep[] = $usr;
 
@@ -115,7 +112,7 @@ function add_user_to_disc($did, $usr_ary) {
 
 	foreach($usr_ary as $uid)
 		db_request($query, array('did' => $did,'uid' => $uid));
-	
+
 	return $did;
 }
 
@@ -124,9 +121,15 @@ function remove_user_from_disc($did, $usr_ary) {
 	verify_users($usr_ary);
 
 	$query = 'DELETE FROM Discussion WHERE id_discussion = :did AND user_in_discussion = :uid';
-
 	foreach($usr_ary as $uid)
 		db_request($query, array('uid' => $uid, 'did' => $did));
+
+	// drop associated messages if no users left in discussion
+	if(!disc_exists($did)) {
+		$q = 'DELETE FROM Message WHERE id_discussion_message = :did';
+		db_request($query, array('did' => $did));
+	}
+
 }
 
 function drop_disc($did) {
@@ -143,7 +146,7 @@ function get_next_free_id() {
 }
 
 function verify_user($uid) {
-	
+
 	if(!user_exists($uid))
 	verror("usr provided does not exist.");
 }
@@ -157,9 +160,13 @@ function verify_users($usr_ary) {
 		verify_user($uid);
 }
 
-function verify_disc($id) {
+function disc_exists($did) {
+	$query = 'SELECT COUNT(id_discussion) FROM Discussion WHERE id_discussion = :did';
+	return (db_request($query, array('did'=>$id), true) > 0);
+}
 
-	if(!(db_request('SELECT COUNT(id_discussion) FROM Discussion WHERE id_discussion = :did', array('did'=>$id), true) > 0))
+function verify_disc($id) {
+	if(!disc_exists($did))
 		verror('Discussion with id ' . $id . ' does not exist.');
 }
 
