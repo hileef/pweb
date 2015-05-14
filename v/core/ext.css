@@ -1,0 +1,7 @@
+body { padding-top: 70px; }
+body { padding-bottom: 55px; }
+
+.ext-spaced { margin-left : 10px; }
+.ext-spaced { margin-right : 10px; }
+.ext-nodrop { margin-bottom : 0px; }
+.ext-nomarg { margin : 0px; }

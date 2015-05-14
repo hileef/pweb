@@ -1,0 +1,23 @@
+//Pweb_v1
+CF/HF
+
+/*Utilisateur*/
+	[DONE] S'inscrire 
+	[DONE] S'identifier
+	[DONE] Se deconnecter
+	[DONE]Changer d'état
+	[DONE] Changer mdp
+/*Discussion*/
+
+	[DONE] Créer discussion(avec une ou plusieurs personnes) 
+	[DONE] Consulter les discussions 
+	[DONE] Envoyer un message sur une discussion
+	[DONE] Ajouter des personnes à une conversation 
+	[DONE] quitter la conversation
+
+/*Frienship*/
+	> Ajouter des amis 
+		>>puis> modifier ajout de personnes a une conversation > limiter aux amis
+	> Enlever des amis
+
+
