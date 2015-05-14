@@ -162,12 +162,12 @@ function verify_users($usr_ary) {
 
 function disc_exists($did) {
 	$query = 'SELECT COUNT(id_discussion) FROM Discussion WHERE id_discussion = :did';
-	return (db_request($query, array('did'=>$id), true) > 0);
+	return (db_request($query, array('did'=>$did), true) > 0);
 }
 
-function verify_disc($id) {
+function verify_disc($did) {
 	if(!disc_exists($did))
-		verror('Discussion with id ' . $id . ' does not exist.');
+		verror('Discussion with id ' . $did . ' does not exist.');
 }
 
 ?>
